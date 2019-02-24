@@ -21,7 +21,9 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -68,27 +70,36 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 
     public void basicReadWrite(){
 
-//        FirebaseDatabase database = FirebaseDatabase.getInstance();
-//        DatabaseReference myRef = database.getReferenceFromUrl("https://ratemytreater.firebaseio.com");
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference myRef = database.getReferenceFromUrl("https://ratemytreater.firebaseio.com");
 
-        //        myRef.child("DragonBoards").addValueEventListener(new ValueEventListener() {
-//            LatLng db;
-//            @Override
-//            public void onDataChange(DataSnapshot dataSnapshot) {
-//
-//                for (DataSnapshot noteDataSnapshot : dataSnapshot.getChildren()) {
-//
-//                    db = new LatLng(noteDataSnapshot.child("Latitude").getValue(Double.class), noteDataSnapshot.child("Longitude").getValue(Double.class));
-//                    mMap.addMarker(new MarkerOptions().position(db).title("Marker in Sydney"));
-//                }
-//            }
-//
-//            @Override
-//            public void onCancelled(DatabaseError error) {
-//                // Failed to read value
-//                Log.w("Tag", "Failed to read value.", error.toException());
-//            }
-//        });
+            myRef.child("DragonBoards").addValueEventListener(new ValueEventListener() {
+            LatLng db;
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+
+                for (DataSnapshot noteDataSnapshot : dataSnapshot.getChildren()) {
+
+                    db = new LatLng(noteDataSnapshot.child("Latitude").getValue(Double.class), noteDataSnapshot.child("Longitude").getValue(Double.class));
+
+                    if(noteDataSnapshot.child("IsFull").getValue(Boolean.class) == true) {
+                        mMap.addMarker(new MarkerOptions().position(db).title(noteDataSnapshot.child("Name").getValue(String.class)).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED)));
+
+                    }
+
+                    else{
+
+                        mMap.addMarker(new MarkerOptions().position(db).title(noteDataSnapshot.child("Name").getValue(String.class)).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN)));
+                    }
+                    }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError error) {
+                // Failed to read value
+                Log.w("Tag", "Failed to read value.", error.toException());
+            }
+        });
     }
 
 
@@ -105,7 +116,9 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     public void onMapReady(GoogleMap googleMap) {
 
         mMap = googleMap;
+        //mMap.setOnMarkerClickListener(this);
     }
+
 
 
     @Override
@@ -165,7 +178,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                                 MapsActivity.latitude = task.getResult().getLatitude();
                                 MapsActivity.longitude = task.getResult().getLongitude();
                                 LatLng TCNJ = new LatLng(latitude, longitude);
-                                mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(TCNJ, 17));
+                                mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(TCNJ, 18));
 
 
                                 Log.d("going366", longitude+"");
