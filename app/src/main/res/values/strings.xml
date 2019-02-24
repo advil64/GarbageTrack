@@ -1,0 +1,6 @@
+<resources>
+    <string name="app_name">aGarbageIdea</string>
+    <string name="title_activity_maps">Surrounding Garbage Cans</string>
+    <string name="warn">Please allow location</string>
+    <string name="settings">Settings</string>
+</resources>
