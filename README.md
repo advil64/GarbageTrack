@@ -1,4 +1,7 @@
 ## Inspiration
+
+(Scripts not pushed)
+
 In a world in which we can clearly see the costs of centuries of environmental carelessness, much importance is placed on the individual’s promise to be environmentally responsible. However, we realized that something so fundamental to today’s environmentalism was marred by problems- that the recycling process was far from perfect, marred by inefficiencies even before recyclable materials were even picked up. We wanted to do our part to help our planet by not only encouraging recycling, but also by improving the infrastructure of the recycling process to ensure that every piece of recyclable material does as much good as possible.
 
 ## What it does
